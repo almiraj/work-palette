@@ -1,0 +1,7 @@
+{
+  "name": "work-palette",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

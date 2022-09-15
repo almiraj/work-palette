@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "work-palette",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
