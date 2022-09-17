@@ -15,7 +15,7 @@ export class Tab1Page implements OnInit {
   constructor(private tab1Service: Tab1Service) {}
 
   ngOnInit() {
-    this.dateTable = this.tab1Service.getDayTable(new Date());
+    this.dateTable = this.tab1Service.getDateTable(new Date());
 
     // const todayDate = new Date();
     // const todayLastDate = new Date(todayDate.getFullYear(), todayDate.getMonth() + 1, 0);

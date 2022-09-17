@@ -23,7 +23,7 @@ export class Tab1Service {
   //   return this.dayTableSubject.asObservable();
   // }
 
-  getDayTable(targetDate: Date): DateRow[]  {
+  getDateTable(targetDate: Date): DateRow[]  {
     const targetLastDate = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0);
     console.log({targetLastDate});
 
@@ -38,6 +38,22 @@ export class Tab1Service {
         dateTable.push(dateRow);
       }
       dateRow.dateList.push(d);
+    }
+    console.log('aaa');
+
+    if (dateTable.length > 0) {
+      const targetRowDateList = dateTable[0].dateList;
+      while (targetRowDateList.length < 7) {
+        targetRowDateList.unshift(null);
+      }
+      console.log({targetRowDateList});
+    }
+    if (dateTable.length > 1) {
+      const targetRowDateList = dateTable[dateTable.length - 1].dateList;
+      while (targetRowDateList.length < 7) {
+        targetRowDateList.push(null);
+      }
+      console.log({targetRowDateList});
     }
 
     console.log({dateTable});

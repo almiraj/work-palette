@@ -13,15 +13,11 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
-
-  <div>
-    <ion-grid>
-      <ion-row *ngFor="let dateRow of dateTable">
-        <ion-col size="8" *ngFor="let date of dateRow.dateList">
-          {{date.getDate()}}
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+  <ion-grid id="date-table">
+    <ion-row *ngFor="let dateRow of dateTable">
+      <ion-col *ngFor="let date of dateRow.dateList">
+        <span *ngIf="date">{{date.getDate()}}</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

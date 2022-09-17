@@ -1,0 +1,30 @@
+#date-table {
+    $border-width: 2px;
+
+    height: calc(100% - 51px);
+
+    ion-row:first-of-type {
+        ion-col {
+            border-top-width: $border-width;
+        }
+    }
+    ion-row:last-of-type {
+        ion-col {
+            border-bottom-width: $border-width;
+        }
+    }
+    ion-row {
+        height: 20%;
+        ion-col:first-of-type {
+            border-left-width: $border-width;
+        }
+        ion-col:last-of-type {
+            border-right-width: $border-width;
+        }
+    }
+    ion-col {
+        border-width: calc($border-width / 2);
+        border-style: solid;
+        border-color: #DFDFDF;
+    }
+}
