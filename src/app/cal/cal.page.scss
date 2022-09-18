@@ -1,12 +1,14 @@
-$border-width: 2px;
+$border-width: 1px;
+$footer-height: 200px;
 
 ion-grid {
     padding: 0;
-    height: calc(100% - $border-width);
+    // height: calc(100% - var(--offset-top) - $border-width);
+    height: calc(100% - $footer-height);
 
     ion-row:first-of-type {
         ion-col {
-            border-top-width: $border-width;
+            border-top-width: 0;
         }
     }
     ion-row:last-of-type {
@@ -24,8 +26,12 @@ ion-grid {
         }
     }
     ion-col {
-        border-width: 0.5px;
+        border-width: calc($border-width / 2);
         border-style: solid;
         border-color: #CCCCCC;
     }
+}
+
+ion-footer {
+    height: 200px;
 }

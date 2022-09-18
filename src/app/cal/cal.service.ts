@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 export class DateTable {
   yearMonth: string;
@@ -13,17 +12,13 @@ export class DateTable {
 export class DateRow {
   dateList: Date[] = [];
 
-  getLast() {
-    return this.dateList[this.dateList.length - 1];
-  }
-
   toString() {
     return this.dateList.toString();
   }
 }
 
 @Injectable({providedIn: 'root'})
-export class Tab1Service {
+export class CalService {
   private firstDayOfWeek = 0;
 
   getDateTable(targetDate: Date): DateTable  {
@@ -42,7 +37,6 @@ export class Tab1Service {
       }
       dateRow.dateList.push(d);
     }
-    console.log('aaa');
 
     if (dateTable.dateRows.length > 0) {
       const targetRowDateList = dateTable.dateRows[0].dateList;
