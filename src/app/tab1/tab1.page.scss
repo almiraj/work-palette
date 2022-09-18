@@ -1,7 +1,8 @@
-#date-table {
-    $border-width: 2px;
+$border-width: 2px;
 
-    height: calc(100% - 51px);
+ion-grid {
+    padding: 0;
+    height: calc(100% - $border-width);
 
     ion-row:first-of-type {
         ion-col {
@@ -23,8 +24,8 @@
         }
     }
     ion-col {
-        border-width: calc($border-width / 2);
+        border-width: 0.5px;
         border-style: solid;
-        border-color: #DFDFDF;
+        border-color: #CCCCCC;
     }
 }
