@@ -19,6 +19,10 @@ export class CalPage implements OnInit {
     this.dateTable = this.calService.getDateTable(new Date());
   }
 
+  onSelectCalCol(selectedDate: Date) {
+    this.selectedDate = selectedDate;
+  }
+
   formatDate(date: Date) {
     if (date) {
       return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
