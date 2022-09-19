@@ -19,19 +19,11 @@ export class CalPage implements OnInit {
     this.dateTable = this.calService.getDateTable(new Date());
   }
 
-  selectCol(date: Date) {
-    this.selectedDate = date;
-  }
-
   formatDate(date: Date) {
     if (date) {
       return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
     } else {
       return '';
     }
-  }
-
-  onSelectCol(selectedDate: Date) {
-    this.selectedDate = selectedDate;
   }
 }
