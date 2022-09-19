@@ -11,9 +11,7 @@
   <ion-grid>
     <ion-row *ngFor="let dateRow of dateTable.dateRows">
       <ion-col *ngFor="let date of dateRow.dateList">
-        <div *ngIf="date" (click)="selectCol(date)" [class.selected-col]="date === selectedDate">
-          {{date.getDate()}}
-        </div>
+        <app-cal-col [date]="date" [selectedDate]="selectedDate" (selectCol)="selectedDate = date"></app-cal-col>
       </ion-col>
     </ion-row>
   </ion-grid>

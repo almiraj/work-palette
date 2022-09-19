@@ -1,27 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      {{dateTable.yearMonth}}
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-
-  <ion-grid>
-    <ion-row *ngFor="let dateRow of dateTable.dateRows">
-      <ion-col *ngFor="let date of dateRow.dateList">
-        <div *ngIf="date" (click)="selectCol(date)" [class.selected-col]="date === selectedDate">
-          {{date.getDate()}}
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-footer collapse="fade">
-    <ion-toolbar>
-      <ion-title>選択された日付：{{formatDate(selectedDate)}}</ion-title>
-    </ion-toolbar>
-  </ion-footer>
-
-</ion-content>
+<div *ngIf="date" (click)="click()" [class.selected-col]="selectedDate === date">
+  {{date.getDate()}}
+</div>

@@ -1,54 +1,12 @@
 $border-width: 1px;
 $footer-height: 200px;
 
-ion-grid {
-    padding: 0;
-    // height: calc(100% - var(--offset-top) - $border-width);
-    height: calc(100% - $footer-height);
-
-    ion-row:first-of-type {
-        ion-col {
-            border-top-width: 0;
-        }
-    }
-    ion-row:last-of-type {
-        ion-col {
-            border-bottom-width: $border-width;
-        }
-    }
-    ion-row {
-        height: 20%;
-        ion-col:first-of-type {
-            border-left-width: $border-width;
-        }
-        ion-col:last-of-type {
-            border-right-width: $border-width;
-        }
-    }
-    ion-col {
-        border-width: calc($border-width / 2);
-        border-style: solid;
-        border-color: #CCCCCC;
-    }
+div {
+    height: 100%;
+    width: 100%;
+    padding: 5px;
 }
 
-ion-col {
-    padding: 0;
-    div {
-        height: 100%;
-        width: 100%;
-        padding: 5px;
-    }
-}
-
-ion-footer {
-    height: $footer-height;
-    ion-title {
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-
-div.selected-col {
+.selected-col {
     background-color: skyblue;
 }

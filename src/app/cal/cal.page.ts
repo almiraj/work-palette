@@ -4,7 +4,7 @@ import { isHoliday } from 'japanese-holidays';
 import { DateTable, CalService as CalService } from './cal.service';
 
 @Component({
-  selector: 'app-tab1',
+  selector: 'app-cal',
   templateUrl: 'cal.page.html',
   styleUrls: ['cal.page.scss']
 })
@@ -29,5 +29,9 @@ export class CalPage implements OnInit {
     } else {
       return '';
     }
+  }
+
+  onSelectCol(selectedDate: Date) {
+    this.selectedDate = selectedDate;
   }
 }

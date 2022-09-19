@@ -6,6 +6,7 @@ import { CalPage } from './cal.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { CalPageRoutingModule } from './cal-routing.module';
+import { CalColPage } from '../cal-col/cal-col.page';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { CalPageRoutingModule } from './cal-routing.module';
     ExploreContainerComponentModule,
     CalPageRoutingModule
   ],
-  declarations: [CalPage]
+  declarations: [CalPage, CalColPage]
 })
 export class CalPageModule {}
