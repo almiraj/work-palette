@@ -7,23 +7,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large"></ion-title>
-    </ion-toolbar>
-  </ion-header> -->
 
   <ion-grid>
     <ion-row *ngFor="let dateRow of dateTable.dateRows">
       <ion-col *ngFor="let date of dateRow.dateList">
-        <span *ngIf="date">{{date.getDate()}}</span>
+        <div *ngIf="date" (click)="selectCol(date)" [class.selected-col]="date === selectedDate">
+          {{date.getDate()}}
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-footer collapse="fade">
     <ion-toolbar>
-      <ion-title>Footer</ion-title>
+      <ion-title>選択された日付：{{formatDate(selectedDate)}}</ion-title>
     </ion-toolbar>
   </ion-footer>
+
 </ion-content>

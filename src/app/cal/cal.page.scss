@@ -32,6 +32,23 @@ ion-grid {
     }
 }
 
+ion-col {
+    padding: 0;
+    div {
+        height: 100%;
+        width: 100%;
+        padding: 5px;
+    }
+}
+
 ion-footer {
-    height: 200px;
+    height: $footer-height;
+    ion-title {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+div.selected-col {
+    background-color: skyblue;
 }

@@ -11,10 +11,23 @@ import { DateTable, CalService as CalService } from './cal.service';
 export class CalPage implements OnInit {
   days: number[] = [];
   dateTable: DateTable;
+  selectedDate: Date;
 
   constructor(private calService: CalService) {}
 
   ngOnInit() {
     this.dateTable = this.calService.getDateTable(new Date());
+  }
+
+  selectCol(date: Date) {
+    this.selectedDate = date;
+  }
+
+  formatDate(date: Date) {
+    if (date) {
+      return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+    } else {
+      return '';
+    }
   }
 }
