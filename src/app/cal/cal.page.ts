@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { isHoliday } from 'japanese-holidays';
 import { DateTable, CalService as CalService } from './cal.service';
 
 @Component({

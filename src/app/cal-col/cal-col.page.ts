@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
-import { isHoliday } from 'japanese-holidays';
-import { DateTable, CalColService } from './cal-col.service';
+import { CalColService } from './cal-col.service';
 
 @Component({
   selector: 'app-cal-col',
