@@ -1,0 +1,12 @@
+$border-width: 1px;
+$footer-height: 200px;
+
+div {
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+}
+
+.selected-col {
+    background-color: skyblue;
+}

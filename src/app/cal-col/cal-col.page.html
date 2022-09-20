@@ -1,3 +1,5 @@
 <div *ngIf="date" (click)="click()" [class.selected-col]="selected">
   {{date.getDate()}}
+  <ion-button id="open-modal_{{date.getDate()}}" expand="block">Open Card Modal</ion-button>
+  <app-date-modal [date]="date"></app-date-modal>
 </div>
