@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import dateFormat from 'dateformat';
 
 import { DateModalService } from './date-modal.service';
 
@@ -9,11 +10,14 @@ import { DateModalService } from './date-modal.service';
 })
 export class DateModalPage implements OnInit {
   @Input() date: Date;
+  title: string;
 
   // Typically referenced to your ion-router-outlet
   presentingElement = null;
 
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
+
+    this.title = dateFormat(this.date, 'yyyy/mm/dd');
   }
 }

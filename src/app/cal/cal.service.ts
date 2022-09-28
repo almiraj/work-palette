@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
 export class DateTable {
-  yearMonth: string;
+  date: Date;
   dateRows: DateRow[] = [];
 
-  constructor(year: number, month: number) {
-    this.yearMonth = year.toString() + '/' + month.toString();
+  constructor(date: Date) {
+    this.date = date;
   }
 }
 
@@ -17,21 +17,21 @@ export class DateRow {
   }
 }
 
+const FIRST_DAY_OF_WEEK = 0;
+
 @Injectable({providedIn: 'root'})
 export class CalService {
-  private firstDayOfWeek = 0;
 
   getDateTable(targetDate: Date): DateTable  {
     const targetLastDate = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0);
-    console.log({targetLastDate});
 
     const targetMonthLastDay = targetLastDate.getDate();
 
-    const dateTable = new DateTable(targetDate.getFullYear(), targetDate.getMonth() + 1);
+    const dateTable = new DateTable(targetDate);
     let dateRow: DateRow;
     for (let i = 1; i <= targetMonthLastDay; i++) {
       const d = new Date(targetDate.getFullYear(), targetDate.getMonth(), i);
-      if (!dateRow || d.getDay() === this.firstDayOfWeek) {
+      if (!dateRow || d.getDay() === FIRST_DAY_OF_WEEK) {
         dateRow = new DateRow();
         dateTable.dateRows.push(dateRow);
       }
@@ -43,17 +43,15 @@ export class CalService {
       while (targetRowDateList.length < 7) {
         targetRowDateList.unshift(null);
       }
-      console.log({targetRowDateList});
     }
     if (dateTable.dateRows.length > 1) {
       const targetRowDateList = dateTable.dateRows[dateTable.dateRows.length - 1].dateList;
       while (targetRowDateList.length < 7) {
         targetRowDateList.push(null);
       }
-      console.log({targetRowDateList});
     }
 
-    console.log({dateTable: dateTable.dateRows});
     return dateTable;
   }
+
 }

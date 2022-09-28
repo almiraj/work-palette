@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DateTable, CalService as CalService } from './cal.service';
+import dateFormat from 'dateformat';
+
+import { DateTable, CalService } from './cal.service';
 
 @Component({
   selector: 'app-cal',
@@ -8,23 +10,24 @@ import { DateTable, CalService as CalService } from './cal.service';
   styleUrls: ['cal.page.scss']
 })
 export class CalPage implements OnInit {
-  days: number[] = [];
   dateTable: DateTable;
+  title: string;
   selectedDate: Date;
 
   constructor(private calService: CalService) {}
 
   ngOnInit() {
     this.dateTable = this.calService.getDateTable(new Date());
+    this.title = dateFormat(this.dateTable.date, 'yyyy/mm');
   }
 
   onSelectCalCol(selectedDate: Date) {
     this.selectedDate = selectedDate;
   }
 
-  formatDate(date: Date) {
-    if (date) {
-      return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+  formatDate(selectedDate: Date) {
+    if (selectedDate) {
+      return dateFormat(selectedDate, 'yyyy/mm/dd');
     } else {
       return '';
     }
