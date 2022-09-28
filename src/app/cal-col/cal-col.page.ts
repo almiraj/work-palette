@@ -5,6 +5,27 @@ import { DateModalDto, DateModalPage } from '../date-modal/date-modal.page';
 
 import { CalColService } from './cal-col.service';
 
+class DetectDoubleSubject {
+  private flag = false;
+  private subject = new Observable(observer => {
+    if (!this.flag) {
+      this.flag = true;
+    } else {
+      this.flag = false;
+      observer.next();
+    }
+  });
+  private subscription: Subscription;
+
+  subscribeTemporary = (observer: PartialObserver<void>, temporaryTime: number) => {
+    this.subscription = this.subject.subscribe(observer);
+    setTimeout(() => {
+      this.flag = false;
+      this.subscription.unsubscribe();
+    }, temporaryTime);
+  };
+}
+
 @Component({
   selector: 'app-cal-col',
   templateUrl: 'cal-col.page.html',
@@ -16,16 +37,7 @@ export class CalColPage implements OnChanges {
   @Output() selectCol = new EventEmitter<Date>();
 
   selected: boolean;
-
-  detectDoubleFlag: boolean;
-  detectDoubleSubject = new Observable(observer => {
-    if (!this.detectDoubleFlag) {
-      this.detectDoubleFlag = true;
-    } else {
-      this.detectDoubleFlag = false;
-      observer.next();
-    }
-  });
+  detectDoubleSubject = new DetectDoubleSubject();
 
   constructor(private modalCtrl: ModalController) {}
 
@@ -38,18 +50,11 @@ export class CalColPage implements OnChanges {
   }
 
   onTouchStart() {
-    const that = this;
-    const subscription = this.detectDoubleSubject.subscribe({
+    this.detectDoubleSubject.subscribeTemporary({
       next: async () => {
-        await that.onDblClick();
+        await this.onDblClick();
       }
-    });
-
-    setTimeout(() => {
-      this.detectDoubleFlag = false;
-      console.log('unsubscribe double touch');
-      subscription.unsubscribe();
-    }, 1000);
+    }, 500);
   }
 
   async onDblClick() {
