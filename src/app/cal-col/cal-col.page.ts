@@ -26,10 +26,13 @@ export class CalColPage implements OnChanges {
   }
 
   onConfirmModal(dateModalDto: DateModalDto) {
-    this.date = new Date(
-      this.date.getFullYear(), this.date.getMonth(), this.date.getDate(),
-      dateModalDto.startTimeHour, dateModalDto.startTimeMinute
-    );
+    //WIP
+    if (dateModalDto.startTimeHour !== undefined) {
+      this.date = new Date(
+        this.date.getFullYear(), this.date.getMonth(), this.date.getDate(),
+        dateModalDto.startTimeHour, dateModalDto.startTimeMinute
+      );
+    }
 
     //WIP
     this.selectCol.emit(this.date);

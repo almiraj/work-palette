@@ -43,9 +43,11 @@ export class DateModalPage implements OnInit {
   onConfirm() {
     const dto = new DateModalDto();
 
-    const startSplit = this.startTimeValue.split(':');
-    dto.startTimeHour = Number(startSplit[0]);
-    dto.startTimeMinute = Number(startSplit[1]);
+    if (this.startTimeValue) {
+      const startSplit = this.startTimeValue.split(':');
+      dto.startTimeHour = Number(startSplit[0]);
+      dto.startTimeMinute = Number(startSplit[1]);
+    }
 
     if (this.endTimeValue) {
       const endSplit = this.endTimeValue.split(':');
