@@ -43,16 +43,21 @@ export class DateModalPage implements OnInit {
   onConfirm() {
     const dto = new DateModalDto();
 
+    const regexp = /^(\d{2}):(\d{2})$/;
     if (this.startTimeValue) {
-      const startSplit = this.startTimeValue.split(':');
-      dto.startTimeHour = Number(startSplit[0]);
-      dto.startTimeMinute = Number(startSplit[1]);
+      const hourMinute = this.startTimeValue.match(regexp);
+      if (hourMinute) {
+        dto.startTimeHour = Number(hourMinute[1]);
+        dto.startTimeMinute = Number(hourMinute[2]);
+      }
     }
 
     if (this.endTimeValue) {
-      const endSplit = this.endTimeValue.split(':');
-      dto.endTimeHour = Number(endSplit[0]);
-      dto.endTimeMinute = Number(endSplit[1]);
+      const hourMinute = this.endTimeValue.match(regexp);
+      if (hourMinute) {
+        dto.endTimeHour = Number(hourMinute[1]);
+        dto.endTimeMinute = Number(hourMinute[2]);
+      }
     }
 
     this.confirmModal.emit(dto);
