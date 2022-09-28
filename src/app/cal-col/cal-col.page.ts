@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { DateModalDto } from '../date-modal/date-modal.page';
+import { ModalController } from '@ionic/angular';
+import { Observable, PartialObserver, Subscription } from 'rxjs';
+import { DateModalDto, DateModalPage } from '../date-modal/date-modal.page';
 
 import { CalColService } from './cal-col.service';
 
@@ -15,7 +17,17 @@ export class CalColPage implements OnChanges {
 
   selected: boolean;
 
-  constructor(private calColService: CalColService) {}
+  detectDoubleFlag: boolean;
+  detectDoubleSubject = new Observable(observer => {
+    if (!this.detectDoubleFlag) {
+      this.detectDoubleFlag = true;
+    } else {
+      this.detectDoubleFlag = false;
+      observer.next();
+    }
+  });
+
+  constructor(private modalCtrl: ModalController) {}
 
   ngOnChanges() {
     this.selected = (this.selectedDate === this.date);
@@ -23,6 +35,33 @@ export class CalColPage implements OnChanges {
 
   onClick() {
     this.selectCol.emit(this.date);
+  }
+
+  onTouchStart() {
+    const that = this;
+    const subscription = this.detectDoubleSubject.subscribe({
+      next: async () => {
+        await that.onDblClick();
+      }
+    });
+
+    setTimeout(() => {
+      this.detectDoubleFlag = false;
+      console.log('unsubscribe double touch');
+      subscription.unsubscribe();
+    }, 1000);
+  }
+
+  async onDblClick() {
+    const modal = await this.modalCtrl.create({
+        component: DateModalPage
+    });
+    modal.present();
+
+    const {data, role} = await modal.onWillDismiss();
+    if (role === 'confirm') {
+      this.onConfirmModal(data);
+    }
   }
 
   onConfirmModal(dateModalDto: DateModalDto) {

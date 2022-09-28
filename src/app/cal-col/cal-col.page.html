@@ -1,5 +1,5 @@
-<div *ngIf="date" (click)="onClick()" [class.selected-col]="selected">
+<div *ngIf="date" (click)="onClick()" (dblclick)="onDblClick()" (touchstart)="onTouchStart()" [class.selected-col]="selected">
   {{date.getDate()}}
   <ion-button id="open-modal_{{date.getDate()}}" expand="block">time</ion-button>
-  <app-date-modal [date]="date" (confirmModal)="onConfirmModal($event)"></app-date-modal>
+  <!-- <app-date-modal [date]="date" (confirmModal)="onConfirmModal($event)"></app-date-modal> -->
 </div>
