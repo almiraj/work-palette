@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { DateModalDto } from '../date-modal/date-modal.page';
 
 import { CalColService } from './cal-col.service';
 
@@ -20,7 +21,17 @@ export class CalColPage implements OnChanges {
     this.selected = (this.selectedDate === this.date);
   }
 
-  click() {
+  onClick() {
+    this.selectCol.emit(this.date);
+  }
+
+  onConfirmModal(dateModalDto: DateModalDto) {
+    this.date = new Date(
+      this.date.getFullYear(), this.date.getMonth(), this.date.getDate(),
+      dateModalDto.startTimeHour, dateModalDto.startTimeMinute
+    );
+
+    //WIP
     this.selectCol.emit(this.date);
   }
 }

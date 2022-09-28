@@ -13,6 +13,7 @@ export class CalPage implements OnInit {
   dateTable: DateTable;
   title: string;
   selectedDate: Date;
+  detailValue: string;
 
   constructor(private calService: CalService) {}
 
@@ -23,11 +24,12 @@ export class CalPage implements OnInit {
 
   onSelectCalCol(selectedDate: Date) {
     this.selectedDate = selectedDate;
+    this.detailValue = this.formatDate(this.selectedDate);
   }
 
   formatDate(selectedDate: Date) {
     if (selectedDate) {
-      return dateFormat(selectedDate, 'yyyy/mm/dd');
+      return dateFormat(selectedDate, 'yyyy/mm/dd HH:MM');
     } else {
       return '';
     }

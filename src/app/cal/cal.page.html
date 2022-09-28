@@ -11,14 +11,14 @@
   <ion-grid>
     <ion-row *ngFor="let dateRow of dateTable.dateRows">
       <ion-col *ngFor="let date of dateRow.dateList">
-        <app-cal-col [date]="date" [selectedDate]="selectedDate" (selectCol)="onSelectCalCol(date)"></app-cal-col>
+        <app-cal-col [date]="date" [selectedDate]="selectedDate" (selectCol)="onSelectCalCol($event)"></app-cal-col>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <ion-footer collapse="fade">
     <ion-toolbar>
-      <ion-title>選択された日付：{{formatDate(selectedDate)}}</ion-title>
+      <ion-title>選択された日付と時刻<br>{{detailValue}}</ion-title>
     </ion-toolbar>
   </ion-footer>
 
