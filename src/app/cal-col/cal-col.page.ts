@@ -64,21 +64,15 @@ export class CalColPage implements OnChanges {
     modal.present();
 
     const {data, role} = await modal.onWillDismiss();
-    if (role === 'confirm') {
-      this.onConfirmModal(data);
+      const dateModalDto: DateModalDto = data;
+      if (role === 'confirm') {
+        if (dateModalDto.startTimeHour !== undefined) {
+          this.date = new Date(
+            this.date.getFullYear(), this.date.getMonth(), this.date.getDate(),
+            dateModalDto.startTimeHour, dateModalDto.startTimeMinute
+          );
+        }
+      this.onClick();
     }
-  }
-
-  onConfirmModal(dateModalDto: DateModalDto) {
-    //WIP
-    if (dateModalDto.startTimeHour !== undefined) {
-      this.date = new Date(
-        this.date.getFullYear(), this.date.getMonth(), this.date.getDate(),
-        dateModalDto.startTimeHour, dateModalDto.startTimeMinute
-      );
-    }
-
-    //WIP
-    this.selectCol.emit(this.date);
   }
 }

@@ -18,7 +18,6 @@ export class DateModalDto {
 })
 export class DateModalPage implements OnInit {
   @Input() date: Date;
-  @Output() confirmModal = new EventEmitter<DateModalDto>();
 
   title: string;
   initialStartHour: string;
@@ -60,8 +59,7 @@ export class DateModalPage implements OnInit {
       }
     }
 
-    this.confirmModal.emit(dto);
-    return this.modalCtrl.dismiss(null, 'confirm');
+    return this.modalCtrl.dismiss(dto, 'confirm');
   }
 
   onChangeStart(event: Event) {
