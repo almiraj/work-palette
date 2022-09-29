@@ -59,7 +59,10 @@ export class CalColPage implements OnChanges {
 
   async onDblClick() {
     const modal = await this.modalCtrl.create({
-        component: DateModalPage
+        component: DateModalPage,
+        componentProps: {
+          date: this.date
+        }
     });
     modal.present();
 
