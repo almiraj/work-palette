@@ -1,39 +1,24 @@
 import { Injectable } from '@angular/core';
-import { OneDayDto } from '../common/OneDayDto';
 
-export class DateTable {
-  oneDayDto: OneDayDto;
-  dateRows: DateRow[] = [];
-
-  constructor(oneDayDto: OneDayDto) {
-    this.oneDayDto = oneDayDto;
-  }
-}
-
-export class DateRow {
-  dateList: OneDayDto[] = [];
-
-  toString() {
-    return this.dateList.toString();
-  }
-}
-
-const FIRST_DAY_OF_WEEK = 0;
+import { OneDayDto } from '../common/dto/OneDayDto';
+import { CalSettings } from '../common/settings/CalSettings';
+import { DateRowDto } from './dto/DateRowDto';
+import { DateTableDto } from './dto/DateTableDto';
 
 @Injectable({providedIn: 'root'})
 export class CalService {
 
-  getDateTable(targetDate: Date): DateTable  {
+  getDateTable(targetDate: Date): DateTableDto  {
     const targetLastDate = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0);
 
     const targetMonthLastDay = targetLastDate.getDate();
 
-    const dateTable = new DateTable(new OneDayDto(targetDate));
-    let dateRow: DateRow;
+    const dateTable = new DateTableDto(new OneDayDto(targetDate));
+    let dateRow: DateRowDto;
     for (let i = 1; i <= targetMonthLastDay; i++) {
       const d = new Date(targetDate.getFullYear(), targetDate.getMonth(), i);
-      if (!dateRow || d.getDay() === FIRST_DAY_OF_WEEK) {
-        dateRow = new DateRow();
+      if (!dateRow || d.getDay() === CalSettings.firstDayOfWeek) {
+        dateRow = new DateRowDto();
         dateTable.dateRows.push(dateRow);
       }
       dateRow.dateList.push(new OneDayDto(d));

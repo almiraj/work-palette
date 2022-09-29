@@ -2,7 +2,6 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { CalPageRoutingModule } from './cal-routing.module';
 import { CalPage } from './cal.page';
@@ -14,7 +13,6 @@ import { DateModalPage } from '../date-modal/date-modal.page';
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
     CalPageRoutingModule
   ],
   declarations: [CalPage, CalColPage, DateModalPage]

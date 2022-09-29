@@ -1,7 +1,4 @@
 export class OneDayDto {
-  static startHourMinuteDefault: string;
-  static endHourMinuteDefault: string;
-
   year: number;
   month: number;
   dayOfMonth: number;

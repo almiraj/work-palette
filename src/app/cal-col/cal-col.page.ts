@@ -1,31 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Observable, PartialObserver, Subscription } from 'rxjs';
-import { OneDayDto } from '../common/OneDayDto';
+
+import { OneDayDto } from '../common/dto/OneDayDto';
+import { DetectDoubleSubject } from '../common/components/DetectDoubleSubject';
 import { DateModalPage } from '../date-modal/date-modal.page';
-
-import { CalColService } from './cal-col.service';
-
-class DetectDoubleSubject {
-  private flag = false;
-  private subject = new Observable(observer => {
-    if (!this.flag) {
-      this.flag = true;
-    } else {
-      this.flag = false;
-      observer.next();
-    }
-  });
-  private subscription: Subscription;
-
-  subscribeTemporary = (observer: PartialObserver<void>, temporaryTime: number) => {
-    this.subscription = this.subject.subscribe(observer);
-    setTimeout(() => {
-      this.flag = false;
-      this.subscription.unsubscribe();
-    }, temporaryTime);
-  };
-}
 
 @Component({
   selector: 'app-cal-col',
@@ -71,11 +49,6 @@ export class CalColPage implements OnChanges {
     const modalOneDayDto: OneDayDto = data;
     if (role === 'confirm') {
       this.oneDayDto = modalOneDayDto;
-      // this.oneDayDto.year = modalOneDayDto.year;
-      // this.oneDayDto.month = modalOneDayDto.month;
-      // this.oneDayDto.dayOfMonth = modalOneDayDto.dayOfMonth;
-      // this.oneDayDto.startTimeHour = modalOneDayDto.startTimeHour;
-      // this.oneDayDto.startTimeMinute = modalOneDayDto.startTimeMinute;
     }
     this.onClick();
   }

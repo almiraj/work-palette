@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import dateFormat from 'dateformat';
-import { OneDayDto } from '../common/OneDayDto';
 
-import { DateTable, CalService } from './cal.service';
+import { OneDayDto } from '../common/dto/OneDayDto';
+import { CalService } from './cal.service';
+import { DateTableDto } from './dto/DateTableDto';
 
 @Component({
   selector: 'app-cal',
@@ -11,31 +12,23 @@ import { DateTable, CalService } from './cal.service';
   styleUrls: ['cal.page.scss']
 })
 export class CalPage implements OnInit {
-  dateTable: DateTable;
+  dateTable: DateTableDto;
   title: string;
   selectedOneDayDto: OneDayDto;
-  detailValue: string;
 
   constructor(private calService: CalService) {}
 
-  ngOnInit() {
-    OneDayDto.startHourMinuteDefault = '10:00';
-    OneDayDto.endHourMinuteDefault = '18:00';
 
-    this.detailValue = this.toDetailSentence();
+  ngOnInit() {
     this.dateTable = this.calService.getDateTable(new Date());
     this.title = dateFormat(this.dateTable.oneDayDto.toDate(), 'yyyy/mm');
   }
 
   onSelectCalCol(selectedOneDayDto: OneDayDto) {
-    console.log('selectedOneDayDto');
-    console.log(selectedOneDayDto);
-
     this.selectedOneDayDto = selectedOneDayDto;
-    this.detailValue = this.toDetailSentence();
   }
 
-  toDetailSentence() {
+  getDetailSentence() {
     if (this.selectedOneDayDto) {
       return this.selectedOneDayDto.month + '/' + this.selectedOneDayDto.dayOfMonth + ' '
         + this.selectedOneDayDto.startHourMinute + '～' + this.selectedOneDayDto.endHourMinute;

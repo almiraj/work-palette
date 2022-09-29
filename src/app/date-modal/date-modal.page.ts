@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { DatetimeChangeEventDetail, DatetimeCustomEvent, ModalController } from '@ionic/angular';
-import dateFormat from 'dateformat';
-import { OneDayDto } from '../common/OneDayDto';
+import { Component, Input, OnInit } from '@angular/core';
+import { DatetimeCustomEvent, ModalController } from '@ionic/angular';
 
-import { DateModalService } from './date-modal.service';
+import dateFormat from 'dateformat';
+import { OneDayDto } from '../common/dto/OneDayDto';
+import { CalSettings } from '../common/settings/CalSettings';
 
 @Component({
   selector: 'app-date-modal',
@@ -29,15 +29,9 @@ export class DateModalPage implements OnInit {
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
     this.title = dateFormat(this.date, 'yyyy/mm/dd');
-    console.log('this.oneDayDto.startHourMinute');
-    console.log(this.oneDayDto.startHourMinute);
-    console.log('OneDayDto.startHourMinuteDefault');
-    console.log(OneDayDto.startHourMinuteDefault);
-    console.log('this.oneDayDto.startHourMinute || OneDayDto.startHourMinuteDefault');
-    console.log(this.oneDayDto.startHourMinute || OneDayDto.startHourMinuteDefault);
 
-    this.initialStartHourMinute = this.oneDayDto.startHourMinute || OneDayDto.startHourMinuteDefault;
-    this.initialEndHourMinute = this.oneDayDto.endHourMinute || OneDayDto.endHourMinuteDefault;
+    this.initialStartHourMinute = this.oneDayDto.startHourMinute || CalSettings.startHourMinuteDefault;
+    this.initialEndHourMinute = this.oneDayDto.endHourMinute || CalSettings.endHourMinuteDefault;
   }
 
   onCancel() {
@@ -45,14 +39,12 @@ export class DateModalPage implements OnInit {
   }
 
   onConfirm() {
-    const regexp = /^(\d{2}):(\d{2})$/;
     if (this.startHourMinute) {
       this.oneDayDto.startHourMinute = this.startHourMinute;
     }
     if (this.endHourMinute) {
       this.oneDayDto.endHourMinute = this.endHourMinute;
     }
-
     return this.modalCtrl.dismiss(this.oneDayDto, 'confirm');
   }
 
