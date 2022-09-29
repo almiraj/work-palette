@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
+import { OneDayDto } from '../common/OneDayDto';
 
 export class DateTable {
-  date: Date;
+  oneDayDto: OneDayDto;
   dateRows: DateRow[] = [];
 
-  constructor(date: Date) {
-    this.date = date;
+  constructor(oneDayDto: OneDayDto) {
+    this.oneDayDto = oneDayDto;
   }
 }
 
 export class DateRow {
-  dateList: Date[] = [];
+  dateList: OneDayDto[] = [];
 
   toString() {
     return this.dateList.toString();
@@ -27,7 +28,7 @@ export class CalService {
 
     const targetMonthLastDay = targetLastDate.getDate();
 
-    const dateTable = new DateTable(targetDate);
+    const dateTable = new DateTable(new OneDayDto(targetDate));
     let dateRow: DateRow;
     for (let i = 1; i <= targetMonthLastDay; i++) {
       const d = new Date(targetDate.getFullYear(), targetDate.getMonth(), i);
@@ -35,7 +36,7 @@ export class CalService {
         dateRow = new DateRow();
         dateTable.dateRows.push(dateRow);
       }
-      dateRow.dateList.push(d);
+      dateRow.dateList.push(new OneDayDto(d));
     }
 
     if (dateTable.dateRows.length > 0) {

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Observable, PartialObserver, Subscription } from 'rxjs';
-import { DateModalDto, DateModalPage } from '../date-modal/date-modal.page';
+import { OneDayDto } from '../common/OneDayDto';
+import { DateModalPage } from '../date-modal/date-modal.page';
 
 import { CalColService } from './cal-col.service';
 
@@ -32,9 +33,9 @@ class DetectDoubleSubject {
   styleUrls: ['cal-col.page.scss']
 })
 export class CalColPage implements OnChanges {
-  @Input() date: Date;
-  @Input() selectedDate: Date;
-  @Output() selectCol = new EventEmitter<Date>();
+  @Input() oneDayDto: OneDayDto;
+  @Input() selectedOneDayDto: OneDayDto;
+  @Output() selectCol = new EventEmitter<OneDayDto>();
 
   selected: boolean;
   detectDoubleSubject = new DetectDoubleSubject();
@@ -42,11 +43,11 @@ export class CalColPage implements OnChanges {
   constructor(private modalCtrl: ModalController) {}
 
   ngOnChanges() {
-    this.selected = (this.selectedDate === this.date);
+    this.selected = (this.oneDayDto === this.selectedOneDayDto);
   }
 
   onClick() {
-    this.selectCol.emit(this.date);
+    this.selectCol.emit(this.oneDayDto);
   }
 
   onTouchStart() {
@@ -61,21 +62,21 @@ export class CalColPage implements OnChanges {
     const modal = await this.modalCtrl.create({
         component: DateModalPage,
         componentProps: {
-          date: this.date
+          oneDayDto: this.oneDayDto
         }
     });
     modal.present();
 
     const {data, role} = await modal.onWillDismiss();
-      const dateModalDto: DateModalDto = data;
-      if (role === 'confirm') {
-        if (dateModalDto.startTimeHour !== undefined) {
-          this.date = new Date(
-            this.date.getFullYear(), this.date.getMonth(), this.date.getDate(),
-            dateModalDto.startTimeHour, dateModalDto.startTimeMinute
-          );
-        }
-      this.onClick();
+    const modalOneDayDto: OneDayDto = data;
+    if (role === 'confirm') {
+      this.oneDayDto = modalOneDayDto;
+      // this.oneDayDto.year = modalOneDayDto.year;
+      // this.oneDayDto.month = modalOneDayDto.month;
+      // this.oneDayDto.dayOfMonth = modalOneDayDto.dayOfMonth;
+      // this.oneDayDto.startTimeHour = modalOneDayDto.startTimeHour;
+      // this.oneDayDto.startTimeMinute = modalOneDayDto.startTimeMinute;
     }
+    this.onClick();
   }
 }

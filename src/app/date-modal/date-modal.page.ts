@@ -1,15 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { DatetimeChangeEventDetail, DatetimeCustomEvent, ModalController } from '@ionic/angular';
 import dateFormat from 'dateformat';
+import { OneDayDto } from '../common/OneDayDto';
 
 import { DateModalService } from './date-modal.service';
-
-export class DateModalDto {
-  startTimeHour: number;
-  startTimeMinute: number;
-  endTimeHour: number;
-  endTimeMinute: number;
-}
 
 @Component({
   selector: 'app-date-modal',
@@ -18,11 +12,14 @@ export class DateModalDto {
 })
 export class DateModalPage implements OnInit {
   @Input() date: Date;
+  @Input() oneDayDto: OneDayDto;
 
   title: string;
-  initialStartHour: string;
-  startTimeValue: string;
-  endTimeValue: string;
+  initialStartHourMinute: string;
+  initialEndHourMinute: string;
+
+  startHourMinute: string;
+  endHourMinute: string;
 
   // Typically referenced to your ion-router-outlet
   presentingElement = null;
@@ -32,7 +29,15 @@ export class DateModalPage implements OnInit {
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
     this.title = dateFormat(this.date, 'yyyy/mm/dd');
-    this.initialStartHour = '10:00';
+    console.log('this.oneDayDto.startHourMinute');
+    console.log(this.oneDayDto.startHourMinute);
+    console.log('OneDayDto.startHourMinuteDefault');
+    console.log(OneDayDto.startHourMinuteDefault);
+    console.log('this.oneDayDto.startHourMinute || OneDayDto.startHourMinuteDefault');
+    console.log(this.oneDayDto.startHourMinute || OneDayDto.startHourMinuteDefault);
+
+    this.initialStartHourMinute = this.oneDayDto.startHourMinute || OneDayDto.startHourMinuteDefault;
+    this.initialEndHourMinute = this.oneDayDto.endHourMinute || OneDayDto.endHourMinuteDefault;
   }
 
   onCancel() {
@@ -40,35 +45,24 @@ export class DateModalPage implements OnInit {
   }
 
   onConfirm() {
-    const dto = new DateModalDto();
-
     const regexp = /^(\d{2}):(\d{2})$/;
-    if (this.startTimeValue) {
-      const hourMinute = this.startTimeValue.match(regexp);
-      if (hourMinute) {
-        dto.startTimeHour = Number(hourMinute[1]);
-        dto.startTimeMinute = Number(hourMinute[2]);
-      }
+    if (this.startHourMinute) {
+      this.oneDayDto.startHourMinute = this.startHourMinute;
+    }
+    if (this.endHourMinute) {
+      this.oneDayDto.endHourMinute = this.endHourMinute;
     }
 
-    if (this.endTimeValue) {
-      const hourMinute = this.endTimeValue.match(regexp);
-      if (hourMinute) {
-        dto.endTimeHour = Number(hourMinute[1]);
-        dto.endTimeMinute = Number(hourMinute[2]);
-      }
-    }
-
-    return this.modalCtrl.dismiss(dto, 'confirm');
+    return this.modalCtrl.dismiss(this.oneDayDto, 'confirm');
   }
 
   onChangeStart(event: Event) {
     const e: DatetimeCustomEvent = event as DatetimeCustomEvent;
-    this.startTimeValue = [e.detail.value].join();
+    this.startHourMinute = [e.detail.value].join();
   }
 
   onChangeEnd(event: Event) {
     const e: DatetimeCustomEvent = event as DatetimeCustomEvent;
-    this.endTimeValue = [e.detail.value].join();
+    this.endHourMinute = [e.detail.value].join();
   }
 }

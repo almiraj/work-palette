@@ -21,7 +21,7 @@
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-datetime [value]="initialStartHour" (ionChange)="onChangeStart($event)" presentation="time" minuteValues="0,15,30,45"></ion-datetime>
+      <ion-datetime [value]="initialStartHourMinute" (ionChange)="onChangeStart($event)" presentation="time" minuteValues="0,15,30,45"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-avatar slot="start">
@@ -33,7 +33,7 @@
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-datetime (ionChange)="onChangeEnd($event)" presentation="time" minuteValues="0,15,30,45"></ion-datetime>
+      <ion-datetime [value]="initialEndHourMinute" (ionChange)="onChangeEnd($event)" presentation="time" minuteValues="0,15,30,45"></ion-datetime>
     </ion-item>
   </ion-list>
 </ion-content>
